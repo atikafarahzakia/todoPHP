@@ -28,3 +28,22 @@ function tambah ($post) {
 
     return mysqli_affected_rows($db);
 }
+
+function edit ($post) {
+    global $db;
+
+    $id = $post['id'];
+    $title = $post['editTitle'];
+    $description = $post['editDescription'];
+
+    $query = "UPDATE todos SET title = '$title', description = '$description' WHERE id = '$id' ";
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function delete ($id) {
+    global $db;
+    $query = "DELETE FROM todos WHERE id = $id";
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}

@@ -10,79 +10,50 @@ a {
 
 /* task */
 .view-btn {
-    display: inline-block;
-    padding: 12px 12px;
-    background: linear-gradient(90deg, #4361ee, #3b5cfa);
-    color: white;
-    font-weight: 600;
-    border-radius: 10px;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: 0.2s ease;
+  display: inline-block;
+  padding: 12px 12px;
+  background: linear-gradient(90deg, #4361ee, #3b5cfa);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.2s ease;
 }
 
 .view-btn:hover {
-    background: linear-gradient(90deg, #3854d8, #304ad1);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.20);
+  background: linear-gradient(90deg, #3854d8, #304ad1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* complete */
 .complete-btn {
-    display: inline-block;
-    padding: 12px 12px;
-    background: linear-gradient(90deg, #4361ee, #3b5cfa);
-    color: white;
-    font-weight: 600;
-    border-radius: 10px;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: 0.2s ease;
+  display: inline-block;
+  padding: 12px 12px;
+  background: linear-gradient(90deg, #4361ee, #3b5cfa);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.2s ease;
 }
 
 .complete-btn:hover {
-    background: linear-gradient(90deg, #3854d8, #304ad1);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.20);
+  background: linear-gradient(90deg, #3854d8, #304ad1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* edit hapus tick */
+/* 
 .action-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px; /* jarak antar icon */
+  transition: 0.2 ease;
 }
 
-.action-icons a i {
-    padding: 10px;            /* ukuran kotak */
-    border-radius: 8px;       /* sudut melengkung */
-    transition: 0.2s ease;    /* animasi hover */
-}
-
-/* Hover effect */
-.action-icons a i:hover {
-    transform: translateY(-2px);
-}
-
-.delete {
-    color: red;
-}
-
-.edit {
-    color: rgb(233, 215, 19);
-}
-
-.action-tick a i {
-    padding: 10px;            /* ukuran kotak */
-    border-radius: 8px;       /* sudut melengkung */
-    transition: 0.2s ease;    /* animasi hover */
-}
-
-/* Hover effect */
-.action-tick a i:hover {
-    transform: translateY(-2px);
-}
-
-.tick {
-    color: green;
-}
+.action-icons > button > i:hover {
+  background: linear-gradient(90deg, #3854d8, #304ad1);
+  transform: translateY(-2px);
+  transform: translateY(-2px);
+} */

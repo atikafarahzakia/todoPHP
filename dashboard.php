@@ -5,17 +5,55 @@ if (isset($_POST['tambah'])) {
     if (tambah($_POST) > 0) {
         $alert = "
         <div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <strong>Berhasil!</strong> Data berhasil ditambahkan.
+            <strong>Berhasil!</strong> Task baru berhasil ditambahkan.
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
     } else {
         $alert = "
         <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>gagal</strong> Data gagal ditambahkan.
+            <strong>gagal</strong> Task baru gagal ditambahkan.
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
     }
 }
+
+// $edit = [];
+// if (isset($_GET['id'])) {
+//     $id = (int) $_GET['id'];
+//     $edit = tampil("SELECT * FROM todos WHERE id = $id")[0];
+// }
+
+if (isset($_POST['ubah'])) {
+    if (edit($_POST) > 0) {
+        $alert = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Gagal!</strong> Task gagal diubah.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+    } else {
+        $alert = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Berhasil!</strong> Task berhasil diubah.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+    }
+}
+
+if (isset($_POST['hapus'])) {
+    if (isset($_POST['id'])) {
+        $id = (int)$_POST['id'];
+        if (delete($id) > 0) {
+            $alert = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Berhasil!</strong> Task berhasil dihapus.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+        } else {
+            $alert = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Gagal!</strong> Task gagal dihapus.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+        }
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -58,14 +96,11 @@ if (isset($_POST['tambah'])) {
                 <form action="" method="post">
                     <div class="mb-3">
                         <label for="" class="form-label">Title</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="title" />
+                        <input type="text" class="form-control" name="title" required />
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" rows="2"></textarea>
+                        <textarea class="form-control" name="description" rows="2" required></textarea>
                         <small>Enter your task today! Have a good day 😊</small>
                     </div>
                     <div class="d-grid mb-3">
@@ -111,20 +146,84 @@ if (isset($_POST['tambah'])) {
                                     <td><?= $no++; ?></td>
                                     <td><?= htmlspecialchars($data['title']); ?></td>
                                     <td><?= htmlspecialchars($data['description']); ?></td>
-                                    <td class="action-icons">
-                                        <a href="" class="edit"><i class="fa-solid fa-pen-to-square fa-xl"></i></a>
-                                        <a href="" class="delete"><i class="fa-solid fa-trash fa-xl"></i></a>
+                                    <td class="action-icons d-flex gap-3">
+                                        <!-- EDITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
+                                        <div class="edit">
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?= $data['id'] ?>">
+                                                <i class="fa-solid fa-pen-to-square text-white"></i>
+                                            </button>
+                                            <div class="modal fade" id="edit<?= $data['id'] ?>" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title text-dark" id="editLabel">Edit Task</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="" method="post">
+                                                                <input type="hidden" name="id" value="<?= $data['id'] ?>">
+                                                                <div class="mb-3">
+                                                                    <label for="" class="form-label text-dark">Title</label>
+                                                                    <input type="text" class="form-control" name="editTitle" value="<?= $data['title'] ?>" />
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="" class="form-label text-dark ">Description</label>
+                                                                    <textarea class="form-control" name="editDescription" rows="2"><?= $data['description'] ?></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary" name="ubah">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- HAPUSSSSSSSSSSSSSS -->
+                                        <div class="delete">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus<?= $data['id'] ?>">
+                                                <i class="fa-solid fa-trash text-white"></i>
+                                            </button>
+                                            <div class="modal fade" id="hapus<?= $data['id'] ?>" tabindex="-1" aria-labelledby="hapusLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <form action="" method="post">
+                                                            <input type="hidden" name="id" value="<?= $data['id'] ?>">
+                                                            <div class="modal-body">
+                                                                <h1 class="text-center text-dark"><i class="fa-regular fa-face-tired"></i></h1>
+                                                                <h3 class="text-center text-dark">Apakan anda yakin ingin menghapus?</h3>
+                                                            </div>
+                                                            <div class="modal-footer d-flex justify-content-center">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger" name="hapus">Delete</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td class="action-tick">
-                                        <a href="" class="tick"><i class="fa-solid fa-check fa-xl"></i></a>
+                                    <td class="action-tick text-center align-middle">
+                                        <a href="" class="bg-success rounded p-2"><i class="fa-solid fa-check text-white w-50"></i></a>
                                     </td>
                             </tr>
                         <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
+                <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
+
     </main>
     <footer>
         <!-- place footer here -->
